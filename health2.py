@@ -12,13 +12,19 @@ image= im.resize((400,300))
 imrotated = im.rotate(45)
 #imrotated.show()
 #3- Crop an image
-
 ### Create a box to defin a region, the region is defined by a 4-tuple, where coordinates are (left, upper, right, lower).
 box = (40,30,90,70)
 ### cropping a region from an image is done using the crop() method.
 region = im.crop(box)
 region.show()
 
-# 4-Converssion de couleurs au niveau de gris 
-im = Image.open('health2.jpeg').convert('L')
+# 4-color conversion to grayscale
+im = Image.open('health2.jpeg').convert("L")
 #im.show()
+# Convert using adaptive palette of color depth 8
+im = Image.open('health2.jpeg').convert("P", palette=Image.ADAPTIVE, colors=8)
+#im.show()
+
+# thumbnail: Réduit ou aggrandit l'image
+im.thumbnail((128,128))
+im.show()
