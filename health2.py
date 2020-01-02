@@ -2,6 +2,7 @@ from PIL import Image
 from numpy import *
 from pylab import *
 # Basic operations 
+""" --------- part 1 -------------- """
 # A- Load an image
 im = Image.open('health2.jpeg')
 #im.show()
@@ -28,3 +29,11 @@ im = Image.open('health2.jpeg').convert("P", palette=Image.ADAPTIVE, colors=8)
 # thumbnail: Réduit ou aggrandit l'image
 im.thumbnail((128,128))
 im.show()
+
+""" --------- part 2 -------------- """
+#Convert images to another format
+# 1- from jpeg to jpg
+if not im.mode == 'RGB':
+  im = im.convert('RGB')
+print(im.mode)
+im.save('ConvertedImg.jpg', quality=95)
