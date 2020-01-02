@@ -30,6 +30,7 @@ im = Image.open('health2.jpeg').convert("P", palette=Image.ADAPTIVE, colors=8)
 im.thumbnail((128,128))
 #im.show()
 
+
 """ --------- part 2 -------------- """
 #Convert images to another format
 # 1- from jpeg to jpg
@@ -41,3 +42,22 @@ im.save('ConvertedImg.jpg', quality=95)
 # 2- from jpg to jpeg
 imgJpg = Image.open('ConvertedImg.jpg')
 im.save('NewConvertedImg.jpeg', quality=95)
+
+
+""" --------- part 3 -------------- """
+
+
+# read image to array
+im = array(Image.open("health2.jpeg").convert("L"))
+# create a new figure
+figure()
+# don’t use colors
+gray()
+# 1- contour, show contours with origin upper left corner
+contour(im, origin="image")
+axis("equal")
+axis("off")
+figure()
+# 2 - Histograme
+hist(im.flatten(),128)
+show()
