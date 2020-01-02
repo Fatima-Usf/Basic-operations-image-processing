@@ -17,7 +17,7 @@ imrotated = im.rotate(45)
 box = (40,30,90,70)
 ### cropping a region from an image is done using the crop() method.
 region = im.crop(box)
-region.show()
+#region.show()
 
 # 4-color conversion to grayscale
 im = Image.open('health2.jpeg').convert("L")
@@ -28,7 +28,7 @@ im = Image.open('health2.jpeg').convert("P", palette=Image.ADAPTIVE, colors=8)
 
 # thumbnail: Réduit ou aggrandit l'image
 im.thumbnail((128,128))
-im.show()
+#im.show()
 
 """ --------- part 2 -------------- """
 #Convert images to another format
@@ -37,3 +37,7 @@ if not im.mode == 'RGB':
   im = im.convert('RGB')
 print(im.mode)
 im.save('ConvertedImg.jpg', quality=95)
+
+# 2- from jpg to jpeg
+imgJpg = Image.open('ConvertedImg.jpg')
+im.save('NewConvertedImg.jpeg', quality=95)
