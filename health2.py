@@ -5,7 +5,7 @@ from pylab import *
 import matplotlib.pyplot as plt
 import numpy as np
 # Basic operations 
-""" --------- part 1 -------------- 
+""" --------- part 1 -------------- """
 # A- Load an image
 im = Image.open('health2.jpeg')
 #im.show()
@@ -34,8 +34,8 @@ im.thumbnail((128,128))
 #im.show()
 
 
-"""# --------- part 2 -------------- """
-"""
+""" --------- part 2 -------------- """
+
 #Convert images to another format
 # 1- from jpeg to jpg
 if not im.mode == 'RGB':
@@ -48,35 +48,38 @@ imgJpg = Image.open('ConvertedImg.jpg')
 im.save('NewConvertedImg.jpeg', quality=95)
 
 
-""" #--------- part 3 -------------- """
-"""
+"""--------- part 3 -------------- """
+
 # read image to array
 im = array(Image.open("health2.jpeg").convert("L"))
+# 1- contour, 
 # create a new figure
 figure()
-# don’t use colors
+# to not use colors in the contour
 gray()
-# 1- contour, show contours with origin upper left corner
+#show contours with origin upper left corner
 contour(im, origin="image")
 axis("equal")
 axis("off")
-#figure()
+figure()
 # 2 - Histograme
 hist(im.flatten(),128)
 #show()
 
 
-""" #--------- part 4 -------------- """
+"""--------- part 4 -------------- """
 #Anotation
 #im = array(Image.open("health21.jpeg"))
 #imshow(im)
 #print("Please click 3 points")
 #x = ginput(3)
 #print("you clicked:",x )
-#show()  """"
+#show() 
 
 """ --------- part 5 -------------- """
-# Array representation and gray transformation, resizing, averaging and equalizatio
+#Array representation and gray transformation, resizing, averaging and equalizatio
+im = array(Image.open("health2.jpeg"))
+print(im.shape, im.dtype)
 
 # Reverse - Way 1 :
 im = np.flipud(plt.imread('health2.jpeg'))
