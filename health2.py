@@ -146,7 +146,7 @@ out, cdf = histeq(im_array)
 save_file = open('histogram-equalization','ab')
 pickle.dump(out, save_file)
 
-""" --------- part 6 -------------- """
+""" --------- part 7 -------------- """
 # PCA
 def pca(X):
         
@@ -196,3 +196,16 @@ for i in range(4):
     
 with open('pca','wb') as f:
     pickle.dump(out, f)
+
+
+""" --------- part 8 -------------- """
+
+image = Image.open('health2.jpeg')
+image = np.array(image.convert('L'))
+
+im2 = filters.gaussian_filter(image, 2)
+img2= Image.fromarray(im2)
+img2.show()
+save_file = open('gaussian-blur','ab')
+
+pickle.dump(im2, save_file)
