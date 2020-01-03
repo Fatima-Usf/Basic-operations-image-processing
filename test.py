@@ -5,16 +5,7 @@ from pylab import *
 import matplotlib.pyplot as plt
 import pickle
 from scipy.ndimage import filters, measurements, morphology
-
 image = Image.open('health2.jpeg')
-image = np.array(image.convert('L'))
-
-im2 = filters.gaussian_filter(image, 2)
-img2= Image.fromarray(im2)
-img2.show()
-save_file = open('gaussian-blur','ab')
-
-pickle.dump(im2, save_file)
 
 #Averaging 
 def compute_average(imlist):
@@ -39,7 +30,7 @@ imlist = np.array(['health3.jpeg', 'health213.jpeg'])
 out_array = compute_average(imlist)
 
 out = Image.fromarray(out_array)
-
+out.show()
 save_file = open('averaging', 'ab')
 
 pickle.dump(out, save_file)
@@ -57,6 +48,7 @@ def histeq(im,nbr_bins=256):
 
 im_array = np.array(image.convert('L'))
 out, cdf = histeq(im_array)
-
+cdf = Image.fromarray(cdf)
+cdf.show()
 save_file = open('histogram-equalization','ab')
 pickle.dump(out, save_file)

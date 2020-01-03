@@ -102,6 +102,8 @@ img2= Image.fromarray(im2)
 img2.show()
 
 #Averaging 
+image = Image.open('health2.jpeg')
+
 def compute_average(imlist):
     averageim = np.array(Image.open(imlist[0]), 'f')
     
@@ -124,7 +126,7 @@ imlist = np.array(['health3.jpeg', 'health213.jpeg'])
 out_array = compute_average(imlist)
 
 out = Image.fromarray(out_array)
-
+#out.show()
 save_file = open('averaging', 'ab')
 
 pickle.dump(out, save_file)
@@ -199,7 +201,7 @@ with open('pca','wb') as f:
 
 
 """ --------- part 8 -------------- """
-
+#Gaussian blur
 image = Image.open('health2.jpeg')
 image = np.array(image.convert('L'))
 
@@ -209,3 +211,41 @@ img2.show()
 save_file = open('gaussian-blur','ab')
 
 pickle.dump(im2, save_file)
+
+#Derivative image 
+image = Image.open('health2.jpeg')
+
+image = np.array(image.convert('L'))
+
+image_x = np.zeros(image.shape)
+filters.sobel(image, 1, image_x)
+
+image_y = np.zeros(image.shape)
+filters.sobel(image, 0, image_y)
+
+out = np.sqrt(image_x**2 + image_y**2)
+
+Image.fromarray(out).show()
+
+save_file = open('derivative-image','ab')
+
+pickle.dump(out, save_file)
+
+
+
+""" --------- part 9 -------------- """
+#Count Object
+image = Image.open('health2.jpeg')
+
+image = np.array(image.convert('L'))
+
+image = 1 * (image < 128)
+
+labels, nbr_objects = measurements.label(image)
+
+print("Number of objects: ", nbr_objects)
+
+save_file = open('nbr_objects', 'wb')
+
+pickle.dump(out, save_file)
+pickle.dump(nbr_objects, save_file)
