@@ -143,7 +143,10 @@ def histeq(im,nbr_bins=256):
     return im2.reshape(im.shape), cdf
 
 im_array = np.array(image.convert('L'))
-out, cdf = histeq(im_array)
+im2, cdf = histeq(im_array)
+
+out = Image.fromarray(im2)
+out.show()
 
 save_file = open('histogram-equalization','ab')
 pickle.dump(out, save_file)
