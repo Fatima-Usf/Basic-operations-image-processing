@@ -9,13 +9,13 @@ from scipy.ndimage import filters, measurements, morphology
 """ --------- part 1 ------------- """
 # A- Load an image
 im = Image.open('health2.jpeg')
-#im.show()
+im.show()
 # 1- Resizing an image
 image= im.resize((400,300))
-#image.show()
+image.show()
 #2 - Rotate an image
 imrotated = im.rotate(45)
-#imrotated.show()
+imrotated.show()
 #3- Crop an image
 ### Create a box to defin a region, the region is defined by a 4-tuple, where coordinates are (left, upper, right, lower).
 box = (40,30,90,70)
@@ -25,14 +25,14 @@ region = im.crop(box)
 
 # 4-color conversion to grayscale
 im = Image.open('health2.jpeg').convert("L")
-#im.show()
+im.show()
 # Convert using adaptive palette of color depth 8
 im = Image.open('health2.jpeg').convert("P", palette=Image.ADAPTIVE, colors=8)
-#im.show()
+im.show()
 
 # thumbnail: Réduit ou aggrandit l'image
 im.thumbnail((128,128))
-#im.show()
+im.show()
 
 
 """ --------- part 2 -------------- """
@@ -65,17 +65,17 @@ axis("off")
 figure()
 # 2 - Histograme
 hist(im.flatten(),128)
-#show()
+show()
 
 
 """--------- part 4 -------------- """
 #Anotation
-#im = array(Image.open("health21.jpeg"))
-#imshow(im)
-#print("Please click 3 points")
-#x = ginput(3)
-#print("you clicked:",x )
-#show() 
+im = array(Image.open("health21.jpeg"))
+imshow(im)
+print("Please click 3 points")
+x = ginput(3)
+print("you clicked:",x )
+show() 
 
 """ --------- part 5 -------------- """
 #Array representation and gray transformation, resizing, averaging and equalizatio
