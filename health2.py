@@ -2,7 +2,7 @@ from PIL import Image
 from numpy import *
 from pylab import *
 # Basic operations 
-""" --------- part 1 -------------- """
+""" --------- part 1 -------------- 
 # A- Load an image
 im = Image.open('health2.jpeg')
 #im.show()
@@ -31,7 +31,8 @@ im.thumbnail((128,128))
 #im.show()
 
 
-""" --------- part 2 -------------- """
+"""# --------- part 2 -------------- """
+"""
 #Convert images to another format
 # 1- from jpeg to jpg
 if not im.mode == 'RGB':
@@ -44,9 +45,8 @@ imgJpg = Image.open('ConvertedImg.jpg')
 im.save('NewConvertedImg.jpeg', quality=95)
 
 
-""" --------- part 3 -------------- """
-
-
+""" #--------- part 3 -------------- """
+"""
 # read image to array
 im = array(Image.open("health2.jpeg").convert("L"))
 # create a new figure
@@ -57,7 +57,23 @@ gray()
 contour(im, origin="image")
 axis("equal")
 axis("off")
-figure()
+#figure()
 # 2 - Histograme
 hist(im.flatten(),128)
-show()
+#show()
+
+
+""" #--------- part 4 -------------- """
+#Anotation
+#im = array(Image.open("health21.jpeg"))
+#imshow(im)
+#print("Please click 3 points")
+#x = ginput(3)
+#print("you clicked:",x )
+#show()  """"
+
+""" --------- part 5 -------------- """
+# Array representation and gray transformation, resizing, averaging and equalizatio
+im = array(Image.open("health2.jpeg").convert("L"))
+#The reverse of the array() transformation can be done using the PIL function fromarray() as:
+pil_im = Image.fromarray((im))
