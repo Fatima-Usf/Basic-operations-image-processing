@@ -1,6 +1,9 @@
 from PIL import Image
 from numpy import *
+import numpy as np
 from pylab import *
+import matplotlib.pyplot as plt
+import numpy as np
 # Basic operations 
 """ --------- part 1 -------------- 
 # A- Load an image
@@ -74,6 +77,16 @@ hist(im.flatten(),128)
 
 """ --------- part 5 -------------- """
 # Array representation and gray transformation, resizing, averaging and equalizatio
-im = array(Image.open("health2.jpeg").convert("L"))
-#The reverse of the array() transformation can be done using the PIL function fromarray() as:
-pil_im = Image.fromarray((im))
+
+# Reverse - Way 1 :
+im = np.flipud(plt.imread('health2.jpeg'))
+plt.subplot(2, 1, 1)
+plt.imshow(im)
+plt.subplot(2, 1, 2)
+plt.imshow(np.fliplr(im))
+plt.show()
+
+# Reverse - Way 2 :
+im = array(Image.open("health21.jpeg"))
+imgOut = Image.fromarray(im)
+imgOut.show()
