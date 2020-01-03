@@ -145,3 +145,54 @@ out, cdf = histeq(im_array)
 
 save_file = open('histogram-equalization','ab')
 pickle.dump(out, save_file)
+
+""" --------- part 6 -------------- """
+# PCA
+def pca(X):
+        
+    num_data, dim = X.shape
+    
+    mean_X = X.mean(axis=0)
+    X = X - mean_X
+    
+    if dim > num_data:
+        M = np.dot(X, X.T)
+        e, EV = np.linalg.eigh(M)
+        tmp = np.dot(X.T, EV).T
+        V = tmp[::-1]
+        S = np.sqrt(e)[::-1]
+        for i in range(V.shape[1]):
+            V[:,i] /= S
+    else:
+        U,S,V = np.linalg.svd(X)
+        V = V[:num_data]
+        
+    return V, S, mean_X
+
+img_shape = np.array(image.convert('L')).shape
+
+
+Image.open('health2.jpeg').resize((img_shape[1], img_shape[0])).save('health3.jpeg')
+Image.open('health21.jpeg').resize((img_shape[1], img_shape[0])).save('health213.jpeg')
+
+
+imlist = np.array(['health3.jpeg', 'health213.jpeg'])
+
+m, n = img_shape[0:2]
+
+imnbr = len(imlist)
+
+immatrix = np.array([np.array(Image.open(im).convert('L')).flatten() for im in imlist], 'f')
+
+V, S, immean = pca(immatrix)
+
+out = plt.figure()
+plt.gray()
+plt.subplot(2, 4, 1)
+plt.imshow(immean.reshape(m,n))
+for i in range(4):
+    plt.subplot(2, 4, i+2)
+    plt.imshow(V[i].reshape(m, n))
+    
+with open('pca','wb') as f:
+    pickle.dump(out, f)
