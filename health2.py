@@ -88,8 +88,30 @@ plt.imshow(im)
 plt.subplot(2, 1, 2)
 plt.imshow(np.fliplr(im))
 plt.show()
-
-# Reverse - Way 2 :
+""" Reverse - Way 2 :
 im = array(Image.open("health21.jpeg"))
 imgOut = Image.fromarray(im)
-imgOut.show()
+imgOut.show()"""
+
+# Reziding 
+def imresize(im,sz):
+    pil_im = Image.fromarray(uint8(im))
+    return array(pil_im.resize(sz))
+
+im = np.flipud(plt.imread('health2.jpeg'))
+imresize(im, (128,128))
+show()
+
+# """ Histogram equalization of a grayscale image. """
+def histeq(im,nbr_bins=256):
+
+  # get image histogram
+    imhist,bins = histogram(im.flatten(),nbr_bins,normed=True)
+    cdf = imhist.cumsum() # cumulative distribution function
+    cdf = 255 * cdf / cdf[-1] # normalize
+  # use linear interpolation of cdf to find new pixel values
+    im2 = interp(im.flatten(),bins[:-1],cdf)
+    return im2.reshape(im.shape), cdf
+
+im = array(Image.open('health2.jpeg').convert('L'))
+im2,cdf = histeq(im)
