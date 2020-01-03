@@ -1,11 +1,12 @@
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from numpy import *
 import numpy as np
 from pylab import *
 import matplotlib.pyplot as plt
-import numpy as np
+import pickle
+from scipy.ndimage import filters, measurements, morphology
 # Basic operations 
-""" --------- part 1 -------------- """
+""" --------- part 1 ------------- """
 # A- Load an image
 im = Image.open('health2.jpeg')
 #im.show()
@@ -88,30 +89,59 @@ plt.imshow(im)
 plt.subplot(2, 1, 2)
 plt.imshow(np.fliplr(im))
 plt.show()
-""" Reverse - Way 2 :
-im = array(Image.open("health21.jpeg"))
-imgOut = Image.fromarray(im)
-imgOut.show()"""
 
 # Reziding 
+pil_im = Image.open('health2.jpeg')
+im = array(pil_im)
 def imresize(im,sz):
     pil_im = Image.fromarray(uint8(im))
-    return array(pil_im.resize(sz))
+    return array(pil_im.resize((sz,sz)))
 
-im = np.flipud(plt.imread('health2.jpeg'))
-imresize(im, (128,128))
-show()
+im2= imresize(im,500)
+img2= Image.fromarray(im2)
+img2.show()
+
+#Averaging 
+def compute_average(imlist):
+    averageim = np.array(Image.open(imlist[0]), 'f')
+    
+    for imname in imlist[1:]:
+        try:
+            averageim += np.array(Image.open(imname))
+        except:
+            print(imname + '...skipped')
+    averageim /= len(imlist)
+    
+    return np.array(averageim, 'uint8')
+
+img_shape = np.array(image.convert('L')).shape
+
+Image.open('health2.jpeg').resize((img_shape[1], img_shape[0])).save('health3.jpeg')
+Image.open('health21.jpeg').resize((img_shape[1], img_shape[0])).save('health213.jpeg')
+
+imlist = np.array(['health3.jpeg', 'health213.jpeg'])
+
+out_array = compute_average(imlist)
+
+out = Image.fromarray(out_array)
+
+save_file = open('averaging', 'ab')
+
+pickle.dump(out, save_file)
 
 # """ Histogram equalization of a grayscale image. """
 def histeq(im,nbr_bins=256):
 
-  # get image histogram
+# get image histogram
     imhist,bins = histogram(im.flatten(),nbr_bins,normed=True)
     cdf = imhist.cumsum() # cumulative distribution function
     cdf = 255 * cdf / cdf[-1] # normalize
-  # use linear interpolation of cdf to find new pixel values
+#use linear interpolation of cdf to find new pixel values
     im2 = interp(im.flatten(),bins[:-1],cdf)
     return im2.reshape(im.shape), cdf
 
-im = array(Image.open('health2.jpeg').convert('L'))
-im2,cdf = histeq(im)
+im_array = np.array(image.convert('L'))
+out, cdf = histeq(im_array)
+
+save_file = open('histogram-equalization','ab')
+pickle.dump(out, save_file)
