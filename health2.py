@@ -21,7 +21,7 @@ imrotated.show()
 box = (40,30,90,70)
 ### cropping a region from an image is done using the crop() method.
 region = im.crop(box)
-#region.show()
+region.show()
 
 # 4-color conversion to grayscale
 im = Image.open('health2.jpeg').convert("L")
@@ -82,7 +82,7 @@ show()
 im = array(Image.open("health2.jpeg"))
 print(im.shape, im.dtype)
 
-# Reverse - Way 1 :
+# Reverse  :
 im = np.flipud(plt.imread('health2.jpeg'))
 plt.subplot(2, 1, 1)
 plt.imshow(im)
@@ -154,9 +154,11 @@ pickle.dump(out, save_file)
 """ --------- part 7 -------------- """
 # PCA
 def pca(X):
-        
+        """ Analyse des composants principaux
+entrée: X, matrice avec des données d'apprentissage stockées sous forme de tableaux aplatis en lignes
+retour: matrice de projection (avec les dimensions importantes en premier), variance et moyenne. """
     num_data, dim = X.shape
-    
+    # center data
     mean_X = X.mean(axis=0)
     X = X - mean_X
     
@@ -179,9 +181,10 @@ img_shape = np.array(image.convert('L')).shape
 
 Image.open('health2.jpeg').resize((img_shape[1], img_shape[0])).save('health3.jpeg')
 Image.open('health21.jpeg').resize((img_shape[1], img_shape[0])).save('health213.jpeg')
+#Image.open('ConvertedImg.jpg').resize((img_shape[1], img_shape[0])).save('covrt.jpg')
 
 
-imlist = np.array(['health3.jpeg', 'health213.jpeg'])
+imlist = np.array(['health2.jpeg','health3.jpeg', 'health213.jpeg'])
 
 m, n = img_shape[0:2]
 
@@ -195,10 +198,10 @@ out = plt.figure()
 plt.gray()
 plt.subplot(2, 4, 1)
 plt.imshow(immean.reshape(m,n))
-for i in range(4):
+for i in range(3):
     plt.subplot(2, 4, i+2)
     plt.imshow(V[i].reshape(m, n))
-    
+print(pca(imlist))   
 with open('pca','wb') as f:
     pickle.dump(out, f)
 
@@ -238,17 +241,13 @@ pickle.dump(out, save_file)
 
 """ --------- part 9 -------------- """
 #Count Object
-image = Image.open('health2.jpeg')
-
-image = np.array(image.convert('L'))
-
-image = 1 * (image < 128)
-
-labels, nbr_objects = measurements.label(image)
-
-print("Number of objects: ", nbr_objects)
+from scipy.ndimage import measurements,morphology
+# load image and threshold to make sure it is binary
+im = array(Image.open("health2.jpeg").convert("L"))
+im = 1*(im<128)
+labels, nbr_objects = measurements.label(im)
+print("Number of objects:", nbr_objects)
 
 save_file = open('nbr_objects', 'wb')
-
-pickle.dump(out, save_file)
 pickle.dump(nbr_objects, save_file)
+
